@@ -6,39 +6,44 @@
 </head>
 
 <body>
-
-  <h3>Random Word</h3>
-  <br>
-  <div style="display:flex; align-items: flex-end;">
-    <textarea id="myTextarea" style="min-height: 80px; min-width: 400px;"></textarea>
-    <div style="display: flex; flex-direction: column; margin-left: 10px;">
-      <button style="height: 20px;" onclick="hideTextArea()" id="btnHide">Hide</button>
-      <button style="margin-top: 10px; height: 20px;" onclick="myFunction()" id="btnLoad">Load</button>
+  <div style="display: flex; justify-items: center; flex-direction: column; max-width: 500px;
+  margin: auto;
+  background: white;
+  padding: 10px;">
+    <h3>Random Word</h3>
+    <br>
+    <div style="display:flex; align-items: flex-end;">
+      <textarea id="myTextarea" style="min-height: 80px; min-width: 400px;"></textarea>
+      <div style="display: flex; flex-direction: column; margin-left: 10px;">
+        <button style="height: 20px;" onclick="hideTextArea()" id="btnHide">Hide</button>
+        <button style="margin-top: 10px; height: 20px;" onclick="myFunction()" id="btnLoad">Load</button>
+      </div>
     </div>
+
+    <br>
+
+    <div>
+      <label for="number">Choose number word:</label>
+
+      <select id="number" style="width: 50px;">
+        <option value="one" selected>1</option>
+        <option value="two">2</option>
+        <option value="three">3</option>
+        <option value="four">4</option>
+        <option value="five">5</option>
+        <option value="ten">10</option>
+        <option value="fifteen">15</option>
+        <option value="twenty">20</option>
+      </select>
+    </div>
+
+    <br>
+    <p id="demo" style="font-size:50px;"></p>
+    <p id="remain"></p>
+
+    <button style="width: 50px;" type="button" onclick="myFunction()" id="btnReset" hidden>Reset</button>
+    <button style="width: 50px;" type="button" onclick="btnNextAction()" id="btnNext">Next</button>
   </div>
-
-  <br>
-
-  <label for="number">Choose number word:</label>
-
-  <select id="number">
-    <option value="one" selected>1</option>
-    <option value="two">2</option>
-    <option value="three">3</option>
-    <option value="four">4</option>
-    <option value="five">5</option>
-    <option value="ten">10</option>
-    <option value="fifteen">15</option>
-    <option value="twenty">20</option>
-  </select>
-
-  <br>
-  <p id="demo" style="font-size:50px;"></p>
-  <p id="remain"></p>
-
-  <button type="button" onclick="myFunction()" id="btnReset" hidden>Reset</button>
-  <button type="button" onclick="btnNextAction()" id="btnNext">Next</button>
-
   <script>
     var arrWord = [];
 
