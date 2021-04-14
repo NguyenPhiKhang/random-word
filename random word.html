@@ -1,6 +1,10 @@
 <!DOCTYPE html>
 <html>
 
+<head>
+  <meta charset="UTF-8">
+</head>
+
 <body>
 
   <h3>Random Word</h3>
@@ -19,7 +23,7 @@
 
   <select id="number">
     <option value="one" selected>1</option>
-    <option value="two" >2</option>
+    <option value="two">2</option>
     <option value="three">3</option>
     <option value="four">4</option>
     <option value="five">5</option>
@@ -57,14 +61,13 @@
       calRandomWord();
     }
 
-    function calRandomWord(){
+    function calRandomWord() {
       let arrayShow = [];
       let e = document.getElementById("number");
       // var value = e.options[e.selectedIndex].value;
       let text = e.options[e.selectedIndex].text;
       for (let i = 0; i < text; i++) {
-        if (arrWord.length === 0)
-        {
+        if (arrWord.length === 0) {
           document.getElementById("btnNext").hidden = true;
           document.getElementById("btnReset").hidden = false;
           continue;
