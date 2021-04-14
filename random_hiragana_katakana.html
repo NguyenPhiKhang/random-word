@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+</head>
+
+<body>
+
+    <button onclick="myFunction()" id="btnLoad" style="height: 60px; width: 80px;">Load</button>
+    <button onclick="nextWords()" disabled id="btnNext" style="height: 60px; width: 80px;">Next</button>
+
+    <p id="demo" style="font-size:50px;"></p>
+
+    <script>
+        var arrWord = ['あ', 'い', 'う', 'え', 'お', 'か', 'き', 'く', 'け', 'こ', 'さ', 'し', 'す', 'せ', 'そ', 'た', 'ち', 'つ',
+            'て', 'と', 'な', 'に', 'ぬ', 'ね', 'の', 'は', 'ひ', 'ふ', 'へ', 'ほ', 'ま', 'み', 'む', 'め', 'も', 'や', 'ゆ', 'よ',
+            'ら', 'り', 'る', 'れ', 'ろ', 'ん', 'わ', 'を', 'ア', 'イ', 'ウ', 'エ', 'オ', 'カ', 'サ', 'タ', 'ナ', 'ハ', 'マ', 'ヤ',
+            'ラ', 'ワ', 'キ', 'シ', 'チ', 'ニ', 'ヒ', 'ミ', 'ユ', 'リ', 'ヰ', 'ク', 'ス', 'ツ', 'ヌ', 'フ', 'ム', 'ヨ', 'ル', 'ヱ',
+            'ケ', 'セ', 'テ', 'ネ', 'ヘ', 'メ', 'レ', 'ヲ', 'コ', 'ソ', 'ト', 'ノ', 'ホ', 'モ', 'ロ', 'キャ', 'シャ', 'チャ', 'ニャ',
+            'ヒャ', 'ミャ', 'リャ', 'キュ', 'シュ', 'チュ', 'ニュ', 'ヒュ', 'ミュ', 'リュ', 'キョ', 'ショ', 'チョ', 'ニョ', 'ヒョ', 'ミョ',
+            'リョ', 'ガ', 'ザ', 'ダ', 'バ', 'パ', 'ヴァ', 'ヴィ', 'ヴ ', 'ヴェ ', 'ヴォ', 'ヴャ', 'ヴュ', 'ヴョ', 'ギ', 'ジ', 'ヂ', 'ビ',
+            'ピ', 'グ', 'ズ', 'ヅ', 'ブ', 'プ', 'ゲ', 'ゼ', 'デ', 'ベ', 'ペ', 'ゴ', 'ゾ', 'ド', 'ボ', 'ポ', 'ギャ', 'ジャ', 'ヂャ',
+            'ビャ', 'ピャ', 'ギュ', 'ジュ', 'ヂュ', 'ビュ', 'ピュ', 'ギョ', 'ジョ', 'ヂョ', 'ビョ', 'ピョ', 'シェ', 'ジェ', 'チェ', 'スィ',
+            'ズィ', 'ティ', 'トゥ', 'テュ', 'ディ', 'ドゥ', 'デュ', 'ツァ', 'ツィ', 'ツェ', 'ツォ', 'ファ', 'フィ', 'フェ', 'フォ', 'フュ',
+            'ウィ', 'ウェ', 'ウォ', '(クヮ) クァ', 'クィ', 'クェ', 'クォ', '(グヮ) グァ', 'グィ', 'グェ', 'グォ', 'きゃ', 'しゃ', 'ちゃ', 'にゃ',
+            'ひゃ', 'みゃ', 'りゃ', 'きゅ', 'しゅ', 'ちゅ', 'にゅ', 'ひゅ', 'みゅ', 'りゅ', 'きょ', 'しょ', 'ちょ', 'にょ', 'ひょ', 'みょ',
+            'りょ', 'が', 'ざ', 'だ', 'ば', 'ぱ', 'ぎ', 'じ', 'ぢ', 'び', 'ぴ', 'ぐ', 'ず', 'づ', 'ぶ', 'ぷ', 'げ', 'ぜ', 'で', 'べ',
+            'ぺ', 'ご', 'ぞ', 'ど', 'ぼ', 'ぽ', 'ぎゃ', 'じゃ', 'ぢゃ', 'びゃ', 'ぴゃ', 'ぎゅ', 'じゅ', 'ぢゅ', 'びゅ', 'ぴゅ', 'ぎょ',
+            'じょ', 'ぢょ', 'びょ', 'ぴょ'
+        ];
+
+        var arrayRandom = [];
+
+        function myFunction() {
+            arrayRandom = [];
+            let arrayShow = [];
+            for (let i = 0; i < 10; i++) {
+                let idx = Math.floor(Math.random() * arrWord.length);
+                if (arrayRandom.indexOf(idx) === -1) {
+                    arrayRandom.push(idx);
+                    arrayShow.push(arrWord[idx]);
+                }
+            }
+
+            document.getElementById("demo").innerHTML = arrayShow.map(value => {
+                if (arrayShow.indexOf(value) === Math.floor(arrayShow.length / 2 - 0.5))
+                    return value + "<br/>"
+                return value;
+            })
+            document.getElementById("btnNext").disabled = false;
+        }
+
+        function nextWords() {
+            let arrayShow = [];
+
+            while (arrayShow.length === 0) {
+                for (let i = 0; i < 10; i++) {
+                    let idx = Math.floor(Math.random() * arrWord.length);
+                    if (arrayRandom.indexOf(idx) === -1) {
+                        arrayRandom.push(idx);
+                        arrayShow.push(arrWord[idx]);
+                    }
+                }
+            }
+
+            document.getElementById("demo").innerHTML = arrayShow.map(value => {
+                if (arrayShow.indexOf(value) === Math.floor(arrayShow.length / 2 - 0.5))
+                    return value + "<br/>"
+                return value;
+            })
+
+            if (arrayRandom.length === arrWord.length)
+                document.getElementById("btnNext").disabled = true;
+        }
+    </script>
+
+</body>
+
+</html>

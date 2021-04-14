@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+
+<body>
+
+  <h3>Random Word</h3>
+  <br>
+  <div style="display:flex; align-items: flex-end;">
+    <textarea id="myTextarea" style="min-height: 80px; min-width: 400px;"></textarea>
+    <button style="margin-left: 10px; height: 20px;" onclick="hideTextArea()" id="btnHide">Hide</button>
+  </div>
+
+  <br>
+
+  <label for="number">Choose number word:</label>
+
+  <select id="number">
+    <option value="one" selected>1</option>
+    <option value="five">5</option>
+    <option value="ten">10</option>
+    <option value="fifteen">15</option>
+    <option value="twenty">20</option>
+  </select>
+
+  <br>
+  <button type="button" onclick="myFunction()">Next</button>
+
+  <p id="demo"></p>
+
+  <script>
+    var arrWord = [];
+
+    function myFunction() {
+      var x = document.getElementById("myTextarea").value;
+      var lines = x.split('\n'); // lines is an array of strings
+
+      let y = "";
+      // Loop through all lines
+      for (var j = 0; j < lines.length; j++) {
+        y = y + "'" + lines[j] + "', ";
+      }
+
+      document.getElementById("demo").innerHTML = y;
+    }
+
+    function hideTextArea() {
+      document.getElementById("btnHide").innerHTML = document.getElementById("btnHide").textContent === "Hide" ?
+        "Show" : "Hide";
+
+      document.getElementById("myTextarea").hidden = !document.getElementById("myTextarea").hidden;
+    }
+  </script>
+
+</body>
+
+</html>
