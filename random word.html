@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+
+<body>
+
+  <h3>Random Word</h3>
+  <br>
+  <div style="display:flex; align-items: flex-end;">
+    <textarea id="myTextarea" style="min-height: 80px; min-width: 400px;"></textarea>
+    <div style="display: flex; flex-direction: column; margin-left: 10px;">
+      <button style="height: 20px;" onclick="hideTextArea()" id="btnHide">Hide</button>
+      <button style="margin-top: 10px; height: 20px;" onclick="myFunction()" id="btnLoad">Load</button>
+    </div>
+  </div>
+
+  <br>
+
+  <label for="number">Choose number word:</label>
+
+  <select id="number">
+    <option value="one" selected>1</option>
+    <option value="two" >2</option>
+    <option value="three">3</option>
+    <option value="four">4</option>
+    <option value="five">5</option>
+    <option value="ten">10</option>
+    <option value="fifteen">15</option>
+    <option value="twenty">20</option>
+  </select>
+
+  <br>
+  <p id="demo" style="font-size:50px;"></p>
+  <p id="remain"></p>
+
+  <button type="button" onclick="myFunction()" id="btnReset" hidden>Reset</button>
+  <button type="button" onclick="btnNextAction()" id="btnNext">Next</button>
+
+  <script>
+    var arrWord = [];
+
+    function myFunction() {
+      var x = document.getElementById("myTextarea").value;
+      arrWord = x.split('\n'); // lines is an array of strings
+      document.getElementById("btnNext").hidden = false;
+      document.getElementById("btnReset").hidden = true;
+
+      // let y = "";
+      // // Loop through all lines
+      // for (var j = 0; j < lines.length; j++) {
+      //   y = y + "'" + lines[j] + "', ";
+      // }
+
+      calRandomWord();
+    }
+
+    function btnNextAction() {
+      calRandomWord();
+    }
+
+    function calRandomWord(){
+      let arrayShow = [];
+      let e = document.getElementById("number");
+      // var value = e.options[e.selectedIndex].value;
+      let text = e.options[e.selectedIndex].text;
+      for (let i = 0; i < text; i++) {
+        if (arrWord.length === 0)
+        {
+          document.getElementById("btnNext").hidden = true;
+          document.getElementById("btnReset").hidden = false;
+          continue;
+        }
+        let idx = Math.floor(Math.random() * arrWord.length);
+        if (arrWord.indexOf(idx) === -1) {
+          arrayShow.push(arrWord.splice(idx, 1));
+        }
+      }
+
+      document.getElementById("demo").innerHTML = arrayShow;
+      document.getElementById("remain").innerHTML = "Remain: " + arrWord.length;
+    }
+
+    function hideTextArea() {
+      document.getElementById("btnHide").innerHTML = document.getElementById("btnHide").textContent === "Hide" ?
+        "Show" : "Hide";
+
+      document.getElementById("myTextarea").hidden = !document.getElementById("myTextarea").hidden;
+      document.getElementById("btnLoad").hidden = !document.getElementById("btnLoad").hidden;
+    }
+  </script>
+
+</body>
+
+</html>
