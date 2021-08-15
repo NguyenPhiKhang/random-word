@@ -91,7 +91,7 @@ function App() {
       <h3>Random Word</h3>
       {/* <br> */}
       <div style={{ display: 'flex', alignItems: 'flex-end', marginBottom: '10px' }}>
-        <textarea id="myTextarea" style={{ minHeight: '80px', minWidth: '400px' }}></textarea>
+        <textarea id="myTextarea" style={{ minHeight: '80px', minWidth: '300px' }}></textarea>
         <div style={{ display: 'flex', flexDirection: 'column', marginLeft: "10px" }}>
           <button style={{ height: '20px' }} onClick={hideTextArea} id="btnHide">Hide</button>
           <button style={{ marginTop: '10px', height: "20px" }} onClick={myFunction} id="btnLoad">Load</button>
