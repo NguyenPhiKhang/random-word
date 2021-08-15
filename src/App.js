@@ -7,8 +7,13 @@ function App() {
   const [arrShow, setArrShow] = useState([]);
 
   useEffect(() => {
-    if (arrShow.length === 0 && arrWord.length !== 0)
+    if (arrShow.length === 0 && arrWord.length !== 0){
       calRandomWord();
+      console.log("call");
+    }
+
+    console.log(arrShow.length);
+    console.log(arrWord.length);
 
   }, [arrWord, arrShow]);
 
@@ -52,18 +57,23 @@ function App() {
 
       do {
         idx = Math.floor(Math.random() * arrWord.length);
+        console.log("do: " + idx);
       } while (idxs.includes(idx));
 
       idxs.push(idx);
 
-      if (arrWord.indexOf(idx) === -1) {
-        arrayShow.push(arrWord.find((v, i) => i === idx));
-      }
+      // if (arrWord.indexOf(idx) === -1) {
+        arrayShow.push(arrWord[idx]);
+      // }
     }
 
-    // console.log(arrayShow);
+    console.log(arrayShow.length);
 
-    setArrayWord(prev => { return prev.filter(v => !arrayShow.includes(v)) });
+    const a = arrWord.filter((v, i) => !idxs.includes(i));
+
+    console.log(a.length);
+
+    setArrayWord(a);
     setArrShow(arrayShow);
 
     // document.getElementById("demo").innerHTML = arrayShow;
