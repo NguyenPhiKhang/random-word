@@ -128,7 +128,7 @@ function App() {
       <div style={{ marginBottom: '10px' }}>
         <span id="spanWord">Word</span>
         <div style={{ display: 'flex', alignItems: 'flex-end', marginBottom: '5px' }}>
-          <textarea onChange={(e) => { setArrWordText(e.target.value.split('\n')) }} id="textWord" style={{ minHeight: '80px', minWidth: '300px' }}></textarea>
+          <textarea onChange={(e) => { setArrWordText(e.target.value.split('\n')) }} id="textWord" style={{ minHeight: '80px', minWidth: '280px' }}></textarea>
           <div style={{ display: 'flex', flexDirection: 'column', marginLeft: "10px" }}>
             <button style={{ height: '20px', marginTop: '5px' }} onClick={hideTextArea} id="btnHide">Hide</button>
             <button style={{ marginTop: '10px', height: "20px" }} onClick={loadWord} id="btnLoad">Load</button>
@@ -137,7 +137,7 @@ function App() {
         </div>
         <div style={{ display: isTextTranslate ? 'flex' : 'none', flexDirection: 'column' }}>
           <span id="spanTranslate">Translate</span>
-          <textarea onChange={(e) => { setArrTranslate(e.target.value.split('\n')) }} id="textTranslate" style={{ minHeight: '80px', minWidth: '300px', width: '300px', marginTop: '5px' }}></textarea>
+          <textarea onChange={(e) => { setArrTranslate(e.target.value.split('\n')) }} id="textTranslate" style={{ minHeight: '80px', minWidth: '280px', width: '280px', marginTop: '5px' }}></textarea>
         </div>
       </div>
 
