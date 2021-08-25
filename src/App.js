@@ -94,6 +94,7 @@ function App() {
 
     document.getElementById("textWord").hidden = !document.getElementById("textWord").hidden;
     document.getElementById("btnLoad").hidden = !document.getElementById("btnLoad").hidden;
+    document.getElementById("spanWord").hidden = !document.getElementById("spanWord").hidden;
   }
 
   const showAlertTranslate = idx => {
