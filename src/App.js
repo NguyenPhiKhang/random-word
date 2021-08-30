@@ -2,6 +2,8 @@ import { useEffect, useState } from 'react';
 // import swal from 'sweetalert';
 import swal from '@sweetalert/with-react'
 import './App.css';
+import firebase from './firebase';
+import { getFirestore, collection, getDocs, updateDoc, doc } from 'firebase/firestore/lite';
 
 function App() {
 
@@ -10,17 +12,55 @@ function App() {
   const [arrWordText, setArrWordText] = useState([]);
   const [arrTranslate, setArrTranslate] = useState([]);
   const [isTextTranslate, setIsTextTranslate] = useState(false);
+  const [dataSave, setDataSave] = useState({ word: '', translate: '' });
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const db = getFirestore(firebase);
+      const colDb = collection(db, 'db-word');
+      const dbSnapshot = await getDocs(colDb);
+      const data = dbSnapshot.docs.map(doc => ({ ...doc.data(), id: doc.id }));
+
+
+      document.getElementById("textWord").textContent = data[0].word;
+      document.getElementById("textTranslate").textContent = data[0].translate;
+      setArrWordText(data[0].word.split('\n'));
+      setArrTranslate(data[0].translate.split('\n'));
+      setDataSave(prev=>({...prev, ...data}));
+    }
+
+    fetchData();
+
+  }, []);
 
   useEffect(() => {
     if (arrShow.length === 0 && arrWord.length !== 0) {
       calRandomWord();
-      console.log("call");
+      // console.log("call");
     }
 
-    console.log(arrShow.length);
-    console.log(arrWord.length);
+    // console.log(arrShow.length);
+    // console.log(arrWord.length);
 
   }, [arrWord, arrShow]);
+
+
+  const saveDB = async () => {
+    const db = getFirestore(firebase);
+    const dbZero = doc(db, "db-word", "rbngF4iM3ScnzVtNQTXO");
+
+    await updateDoc(dbZero, {
+      word: dataSave.word,
+      translate: dataSave.translate
+    });
+
+    swal({
+      text: "Updated!",
+      icon: "success",
+      button: "OK",
+    });
+  }
+
 
   function loadWord() {
     let x = document.getElementById("textWord").value;
@@ -62,7 +102,7 @@ function App() {
 
       do {
         idx = Math.floor(Math.random() * arrWord.length);
-        console.log("do: " + idx);
+        // console.log("do: " + idx);
       } while (idxs.includes(idx));
 
       idxs.push(idx);
@@ -72,11 +112,11 @@ function App() {
       // }
     }
 
-    console.log(arrayShow.length);
+    // console.log(arrayShow.length);
 
     const a = arrWord.filter((v, i) => !idxs.includes(i));
 
-    console.log(a.length);
+    // console.log(a.length);
 
     setArrayWord(a);
     setArrShow(arrayShow);
@@ -101,9 +141,9 @@ function App() {
     if (arrWordText.length === arrTranslate.length) {
       // swal("TRANSLATE!!!", `${arrTranslate[idx]}`);
       swal(
-        <div style={{display: 'flex', flexDirection: 'column'}}>
+        <div style={{ display: 'flex', flexDirection: 'column' }}>
           <span>TRANSLATE!!!</span>
-          <span style={{fontSize: '40px'}}>
+          <span style={{ fontSize: '40px' }}>
             {arrTranslate[idx]}
           </span>
         </div>
@@ -125,11 +165,19 @@ function App() {
     }}>
 
       <h3>Random Word</h3>
+      <button style={{
+        marginTop: '10px', height: "20px", width: '100px', marginBottom: '10px',
+        backgroundColor: '#4287f5', color: 'white'
+      }}
+        id="btnSavedb" onClick={saveDB}>Save DB</button>
 
       <div style={{ marginBottom: '10px' }}>
         <span id="spanWord">Word</span>
         <div style={{ display: 'flex', alignItems: 'flex-end', marginBottom: '5px' }}>
-          <textarea onChange={(e) => { setArrWordText(e.target.value.trim().split('\n')) }} id="textWord" style={{ minHeight: '80px', minWidth: '250px' }}></textarea>
+          <textarea onChange={(e) => {
+            setArrWordText(e.target.value.trim().split('\n'));
+            setDataSave(prev => ({ ...prev, word: e.target.value.trim() }));
+          }} id="textWord" style={{ minHeight: '80px', minWidth: '250px' }}></textarea>
           <div style={{ display: 'flex', flexDirection: 'column', marginLeft: "10px" }}>
             <button style={{ height: '20px', marginTop: '5px' }} onClick={hideTextArea} id="btnHide">Hide</button>
             <button style={{ marginTop: '10px', height: "20px" }} onClick={loadWord} id="btnLoad">Load</button>
@@ -138,7 +186,10 @@ function App() {
         </div>
         <div style={{ display: isTextTranslate ? 'flex' : 'none', flexDirection: 'column' }}>
           <span id="spanTranslate">Translate</span>
-          <textarea onChange={(e) => { setArrTranslate(e.target.value.trim().split('\n')) }} id="textTranslate" style={{ minHeight: '80px', minWidth: '250px', width: '250px', marginTop: '5px' }}></textarea>
+          <textarea onChange={(e) => {
+            setArrTranslate(e.target.value.trim().split('\n'));
+            setDataSave(prev => ({ ...prev, translate: e.target.value.trim() }));
+          }} id="textTranslate" style={{ minHeight: '80px', minWidth: '250px', width: '250px', marginTop: '5px' }}></textarea>
         </div>
       </div>
 
@@ -161,8 +212,8 @@ function App() {
       {/* <p id="demo" style={{ fontSize: '50px' }}>{arrShow}</p> */}
       <div style={{ marginTop: '10px' }}>
         {
-          arrShow.map(v => (
-            <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
+          arrShow.map((v, idx) => (
+            <div key={idx} style={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
               <span>😄⟿</span>
               <span style={{ fontSize: '30px', marginLeft: '6px', marginRight: '4px' }}>{v.value}</span>
               <button onClick={() => { showAlertTranslate(v.idx) }} style={{ backgroundColor: 'rgb(52, 222, 0)', height: '18px', width: '18px', borderRadius: 9, content: 'center', padding: 0 }}>+</button>
